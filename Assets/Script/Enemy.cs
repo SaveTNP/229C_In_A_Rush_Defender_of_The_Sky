@@ -1,7 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
+[System.Serializable]
+public class Loot
+{
+	public GameObject itemPrefab;
+	[Range(0, 100)] public float chance;
+}
 
 public class Enemy : MonoBehaviour
 {
+	public List<Loot> lootTable;
+
 	[SerializeField] private float speed = 3f;
 	[SerializeField] private float minDistance = 0.5f;
 	[SerializeField] private float fireRate = 1.5f;
@@ -15,9 +24,29 @@ public class Enemy : MonoBehaviour
 	// Start is called once before the first execution of Update after the MonoBehaviour is created
 	void Start()
     {
+		if(target == null){
+			target = GameObject.FindWithTag("Player").transform;
+		}
 		_rb = GetComponent<Rigidbody2D>();
 	}
+	public void DropItem(){
+		float roll = Random.Range(0f, 100f);
+		float cumulativeChance = 0f;
 
+		foreach (Loot loot in lootTable)
+		{
+			cumulativeChance += loot.chance;
+			if (roll <= cumulativeChance)
+			{
+				if (loot.itemPrefab != null)
+				{
+					Instantiate(loot.itemPrefab, transform.position, Quaternion.identity);
+				}
+				break;
+			}
+
+		}
+	}
     // Update is called once per frame
     void Update()
     {

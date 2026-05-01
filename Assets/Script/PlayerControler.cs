@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 public class PlayerControler : MonoBehaviour
 {
 	[SerializeField] public float speed = 5.0f;
+	[SerializeField] private float dashForce = 10f;
+	private float dashCD = 1.5f;
+	private float nextDash = 0f;
 	private float moveValueX;
     private float moveValueY;
     private Vector2 moveInput;
@@ -29,6 +32,16 @@ public class PlayerControler : MonoBehaviour
             moveValueY = (Keyboard.current.wKey.isPressed ? 1f : 0) - (Keyboard.current.sKey.isPressed ? 1f : 0);
             moveInput = new Vector2(moveValueX, moveValueY).normalized;
         }
-		_rb.linearVelocity = new Vector2(moveInput.x * speed, moveInput.y * speed);
+			_rb.AddForce(moveInput * speed);
+
+		if (Keyboard.current.leftShiftKey.wasPressedThisFrame)
+		{
+			if (Time.time >= nextDash)
+			{
+				Vector2 dashDirection = moveInput.sqrMagnitude > 0 ? moveInput : (Vector2)transform.up;
+				_rb.AddForce(dashDirection * dashForce, ForceMode2D.Impulse);
+				nextDash = Time.time + dashCD;
+			}
+		}
 	}
 }

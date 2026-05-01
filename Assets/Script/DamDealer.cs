@@ -4,7 +4,7 @@ public class DamDealer : MonoBehaviour
 {
     [SerializeField] private float dmgAmount = 10f;
 
-    private void OnTriggerEnter2(Collider2D other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         DealDam(other.gameObject);
     }
@@ -22,10 +22,10 @@ public class DamDealer : MonoBehaviour
         {
             targetHP.TakeDamage(dmgAmount);
 
-            if (gameObject.CompareTag("Bullet"))
-            {
-                Destroy(gameObject);
-            }
+            //if (gameObject.CompareTag("Bullet"))
+            //{
+            //    Destroy(gameObject);
+            //}
         }
     }
 }

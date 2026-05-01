@@ -3,14 +3,22 @@ using UnityEngine;
 
 public class MenuController : MonoBehaviour
 {
-public void LoadScene(string sceneName)
+	public void LoadGame()
 	{
-		SceneManager.LoadScene(sceneName);
+		SceneManager.LoadScene("Game");
+	}
+
+	public void LoadMainMenu()
+	{
+		SceneManager.LoadScene("MainMenu");
 	}
 
 	public void QuitGame()
 	{
 		Application.Quit();
 	}
+
+	public void WinScene() => SceneManager.LoadScene("Win");
+	public void LoseScene() => SceneManager.LoadScene("GameOver");
 }
 

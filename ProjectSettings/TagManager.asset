@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Enemy
+  - Obstacle
+  - Projectile
+  - Effector
   layers:
   - Default
   - TransparentFX
@@ -13,10 +17,10 @@ TagManager:
   - UI
   - EnemyBullet
   - PlayerBullet
-  - 
-  - 
-  - 
-  - 
+  - Item
+  - Player
+  - Enemy
+  - Dust
   - 
   - 
   - 
